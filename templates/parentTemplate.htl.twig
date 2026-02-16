@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    {# <link rel="stylesheet" href="styles.css">  CSS en un futuro?? Chatgpt :) #}
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Website Header</h1>
+            
+            {% block header %} {% endblock %} 
+            
+        </div>
+    </header>
+
+    
+    <main>
+        <div class="container">
+            
+            {% block content %} {% endblock %} 
+            
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="container">
+        {% block footer %} 
+            <p>&copy; SocialNetworkJJ 2026. Jaime y Juan</p>
+        {% endblock %} 
+        </div>
+    </footer>
+</body>
+
+</html>
