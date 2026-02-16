@@ -9,25 +9,25 @@ class Seguidores
 {
 	#[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Usuarios::class)]
-    #[ORM\JoinColumn(name: 'idSeguidor', referencedColumnName: 'idUsuario', nullable: false)]
+    #[ORM\JoinColumn(name: 'idSeguidor', referencedColumnName: 'idUsuario')]
     private $seguidor;
     
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Usuarios::class)]
-    #[ORM\JoinColumn(name: 'idSeguido', referencedColumnName: 'idUsuario', nullable: false)]
+    #[ORM\JoinColumn(name: 'idSeguido', referencedColumnName: 'idUsuario')]
     private $seguido;
 
 	#[ORM\Column(type:'string', name:'estado')]
     private $estado;
 	
-    public function getIdSeguidor() {
-        return $this->idSeguidor;
+    public function getSeguidor() {
+        return $this->seguidor;
     }
-    public function getIdSeguido() {
-        return $this->idSeguido;
+    public function getSeguido() {
+        return $this->seguido;
     }
-    public function setIdSeguido($idSeguido) {
-        $this->idSeguido = $idSeguido;
+    public function setSeguido($seguido) {
+        $this->seguido = $seguido;
     }
     public function getEstado() {
         return $this->estado;
