@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class LoginPhpController extends AbstractController
 {
-    #[Route('/login', name: 'app_login_php')]
+    #[Route('/login', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils)
     {
          // Comprueba si hubo algún error
@@ -21,4 +21,5 @@ final class LoginPhpController extends AbstractController
         // Renderizar el formulario de login
         return $this->render('login.html.twig');
     }
+
 }
