@@ -8,35 +8,31 @@ use Doctrine\ORM\Mapping as ORM;
 class Seguidores 
 {
 	#[ORM\Id]
-    #[ORM\Column(type:'integer', name:'')]
-    #[ORM\GeneratedValue]
-    private $codCat;
+    #[ORM\ManyToOne(targetEntity: Usuarios::class)]
+    #[ORM\JoinColumn(name: 'idSeguidor', referencedColumnName: 'idUsuario', nullable: false)]
+    private $seguidor;
+    
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: Usuarios::class)]
+    #[ORM\JoinColumn(name: 'idSeguido', referencedColumnName: 'idUsuario', nullable: false)]
+    private $seguido;
 
-	#[ORM\Column(type:'string', name:'nombre')]
-    private $nombre;
-
-	#[ORM\Column(type:'string', name:'descripcion')]
-    private $descripcion;
-
-	#[ORM\OneToMany(targetEntity:'Producto', mappedBy:'categoria')]
-    private $productos;
+	#[ORM\Column(type:'string', name:'estado')]
+    private $estado;
 	
-    public function getCodCat() {
-        return $this->codCat;
+    public function getIdSeguidor() {
+        return $this->idSeguidor;
     }
-    public function getProductos() {
-        return $this->productos;
+    public function getIdSeguido() {
+        return $this->idSeguido;
     }
-    public function getNombre() {
-        return $this->nombre;
+    public function setIdSeguido($idSeguido) {
+        $this->idSeguido = $idSeguido;
     }
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
+    public function getEstado() {
+        return $this->estado;
     }
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    public function setEstado($estado) {
+        $this->estado = $estado;
     }
 }
