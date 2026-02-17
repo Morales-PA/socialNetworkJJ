@@ -4,8 +4,8 @@ Jaime:
 Juan:
 	Dashboard:
 		-Ver mi perfil:
-			Crear posts
-		-Busqueda usuarios:
-			DQL
+			TOFIX: -Show user posts
 		-Creacion posts:
-		-API {{ DEEPSEEK }}
+		-API: 
+			DEEPSEEK
+		// TODO: Make the user search function return a mmesage when zero users are found

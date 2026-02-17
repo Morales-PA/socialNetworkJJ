@@ -6,7 +6,7 @@
 
 {% block content %}  
 
-    <a href="{{ path("profileDashboard") }}">Mi perfil</a> <br>
+    <a href="{{ path("personalProfileDashboard", { loggedUser : app.user.idUsuario }) }}">Mi perfil</a> <br>
     <a href="{{ path("createPostDashboard") }}">Crear Post</a> <br>
     {# <a href="{{ path()}}"></a> <br> #}
 
@@ -16,6 +16,16 @@
         <input type="text" name="_userToSearch"/> <br>
         <input type="submit" value="Buscar"><br>
     </form> <br>
+
+    {% if usersFoundArray is not empty %}
+
+        {% for user in usersFoundArray  %}
+
+            <p> {{ user.nombre }} | {{ user.correo }} | <a href="">Ir a perifl</a> </p>
+
+        {% endfor %}
+
+    {% endif %}
 
 {% endblock %}
 

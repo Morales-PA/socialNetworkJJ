@@ -14,8 +14,7 @@ final class LoginPhpController extends AbstractController
     #[Route('/login', name: 'login')]
     public function Login(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager)
     {   
-        {
-
+        
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -23,22 +22,17 @@ final class LoginPhpController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
-}
-
 
     }
 
     #[Route('/after_login', name: 'after_login')]
-    public function afterLogin(Request $request, AuthenticationUtils $authenticationUtils)
+    public function afterLogin(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager)
     {   
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = $this->getUser(); // Usuario autenticado
             
-        return $this->render('afterLogin.html.twig', [
-            'nombre' => $user->getNombre(),
-        ]);
-
+        return $this->redirectToRoute("mainDashboard");
     }
 
     // #[Route('/after_login', name: 'after_login')]
@@ -54,5 +48,3 @@ final class LoginPhpController extends AbstractController
 
     // }
 }
-
-

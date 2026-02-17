@@ -1,8 +1,14 @@
-<html>
-<head><title>Iniciar sesion</title></head>
-<body>
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}  
+    <h1> Social Network JJ </h1>
+{% endblock %} 
+    
+{% block content %}
+    
     <!--FORMULARIO INICIO DE SESION -->
-    <p><h1>Incio de sesion</h1></p>
+    <p><h1>Incio de sesión</h1></p>
+    
     <form action="{{ path('login') }}" method="post">
         <label for="username">Correo:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}">
@@ -15,9 +21,11 @@
     <!--FORMULARIO CREAR CUENTA -->
     <p><h1>¿No tienes cuenta?</h1></p>
     <form action="" method="post">
-    Crea una aqui ->
     <input type="submit" value="Crear cuenta">
     </form>
 
-</body>
-</html>
+{% endblock %} 
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %} 

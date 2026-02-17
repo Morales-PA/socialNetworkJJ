@@ -1,0 +1,25 @@
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}  
+        <h1> {{app.user.nombre}} </h1> 
+        <h3> {{app.user.correo}} </h3>
+{% endblock %} 
+
+{% block content %} 
+        <h4> Tus posts: </h4>
+
+        {% if userPostsArray is not empty %}
+
+                {% for post in userPostsArray  %}
+
+                        <p class="container"> {{ post.fechaPublicacion|date('d/m/Y H:i') }} | {{ post.contenido }} </p>
+
+                {% endfor %}
+
+        {% endif %}
+
+{% endblock %} 
+
+{% block footer %} 
+        {{ parent() }}
+{% endblock %} 
