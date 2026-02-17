@@ -3,13 +3,13 @@ security:
     providers:
         app_user_provider:                 
             entity:
-                class: App\Entity\usuarios    # La entidad
-                property: nombre          # Atributo de la clase que es el nombre de usuario
+                class: App\Entity\Usuarios    # La entidad
+                property: correo                # Atributo de la clase que es el nombre de usuario
 
      # Hasheo de las claves de los usuarios
     # en este caso están escritas en texto plano (plaintext) en la base de datos
     password_hashers:
-        App\Entity\usuarios:
+        App\Entity\Usuarios:
                 algorithm: plaintext #CAMBIAR PARA HASHEAR LAS CONTRASEÑAS
                 ignore_case: true
 

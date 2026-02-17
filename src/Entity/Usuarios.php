@@ -84,7 +84,7 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
         $this->fechaRegistro = $fechaRegistro;
     }
 
-    public function getroles() : array{
+    public function getRoles() : array{
         if($this->admin){
             return ['ROLE_ADMIN'];
         } else {
@@ -92,19 +92,22 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
         }
     }
 
-    public function getPassword() {
+    public function getPassword(): string
+    {
         return $this->contraseña;
     }
 
-    public function getUserIdentifier() {
-        return $this->correo;
+    public function getUserIdentifier(): string
+    {
+    return (string) $this->correo;
     }
+
 
     public function getSalt() {
         return null;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials() : void{
         // No se necesitan acciones adicionales para borrar las credenciales
     }
 }
