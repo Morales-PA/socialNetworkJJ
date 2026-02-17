@@ -4,22 +4,55 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Usuarios; 
 
 final class LoginPhpController extends AbstractController
 {
     #[Route('/login', name: 'login')]
-    public function index(AuthenticationUtils $authenticationUtils)
-    {
-         // Comprueba si hubo algún error
-         $error = $authenticationUtils->getLastAuthenticationError();
+    public function Login(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager)
+    {   
+        {
 
-        // Recupera el último nombre de usuario que se probó
-         $lastUsername = $authenticationUtils->getLastUsername();
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        // Renderizar el formulario de login
-        return $this->render('login.html.twig');
+        return $this->render('login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
+}
+
+
     }
 
+    #[Route('/after_login', name: 'after_login')]
+    public function afterLogin(Request $request, AuthenticationUtils $authenticationUtils)
+    {   
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser(); // Usuario autenticado
+            
+        return $this->render('afterLogin.html.twig', [
+            'nombre' => $user->getNombre(),
+        ]);
+
+    }
+
+    // #[Route('/after_login', name: 'after_login')]
+    // public function afterLogin(Request $request, AuthenticationUtils $authenticationUtils)
+    // {   
+    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
+    //     $user = $this->getUser(); // Usuario autenticado
+            
+    //     return $this->render('afterLogin.html.twig', [
+    //         'nombre' => $user->getNombre(),
+    //     ]);
+
+    // }
 }
+
+

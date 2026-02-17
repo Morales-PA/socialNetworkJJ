@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity] 
 #[ORM\Table(name: 'usuarios')]
-class Usuarios 
+class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
 {
 	#[ORM\Id]
     #[ORM\GeneratedValue]
@@ -80,5 +82,32 @@ class Usuarios
     
     public function setFechaRegistro($fechaRegistro) {
         $this->fechaRegistro = $fechaRegistro;
+    }
+
+    public function getRoles() : array{
+        if($this->admin){
+            return ['ROLE_ADMIN'];
+        } else {
+            return ['ROLE_USER'];
+        }
+    }
+
+    public function getPassword(): string
+    {
+        return $this->contraseña;
+    }
+
+    public function getUserIdentifier(): string
+    {
+    return (string) $this->correo;
+    }
+
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() : void{
+        // No se necesitan acciones adicionales para borrar las credenciales
     }
 }
