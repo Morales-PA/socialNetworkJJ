@@ -32,6 +32,7 @@ final class LoginPhpController extends AbstractController
     public function afterLogin(Request $request, AuthenticationUtils $authenticationUtils)
     {   
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $user = $this->getUser(); // Usuario autenticado
             
         return $this->render('afterLogin.html.twig', [
@@ -39,6 +40,19 @@ final class LoginPhpController extends AbstractController
         ]);
 
     }
+
+    // #[Route('/after_login', name: 'after_login')]
+    // public function afterLogin(Request $request, AuthenticationUtils $authenticationUtils)
+    // {   
+    //     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
+    //     $user = $this->getUser(); // Usuario autenticado
+            
+    //     return $this->render('afterLogin.html.twig', [
+    //         'nombre' => $user->getNombre(),
+    //     ]);
+
+    // }
 }
 
 

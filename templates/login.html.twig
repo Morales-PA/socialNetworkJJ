@@ -1,16 +1,23 @@
 <html>
 <head><title>Iniciar sesion</title></head>
 <body>
+    <!--FORMULARIO INICIO DE SESION -->
+    <p><h1>Incio de sesion</h1></p>
     <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
+        <label for="username">Correo:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}">
-
-        <label for="password">Password:</label>
+        <label for="password">Contraseña:</label>
         <input type="password" id="password" name="_password">
-        
-        Si cambias los atributos name del formulario, no funcionará.
 
-        <button type="submit">login</button>
+        <input type="submit" value="Iniciar sesion"></input>
     </form>
+
+    <!--FORMULARIO CREAR CUENTA -->
+    <p><h1>¿No tienes cuenta?</h1></p>
+    <form action="" method="post">
+    Crea una aqui ->
+    <input type="submit" value="Crear cuenta">
+    </form>
+
 </body>
 </html>
