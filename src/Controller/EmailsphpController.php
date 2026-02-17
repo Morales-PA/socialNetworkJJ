@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Usuarios; 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 
 final class EmailsphpController extends AbstractController
 {
@@ -24,20 +27,40 @@ final class EmailsphpController extends AbstractController
     }
     
     #[Route('/ConfirmarNuevaCuenta', name: 'confirm_account')]
-    public function ConfirmarCuenta(Request $request, EntityManagerInterface $entityManager)
+    public function ConfirmarCuenta(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer)
     {   
         $correcito = $request->get('new_email');
         $contraseñita = $request->get('new_password');
+        $nombrecito = $request->get('new_name');
         $repo = $entityManager->getRepository(Usuarios::class);
-        $usuario = $repo->findOneBy(['email' => $correcito]);
+        $usuario = $repo->findOneBy(['correo' => $correcito]);
         if (!$usuario) {
-            // $nuevoUsuario = new Usuarios();
-            // $nuevoUsuario->setEmail($correcito);
-            // $nuevoUsuario->setPassword(password_hash($contraseñita, PASSWORD_BCRYPT));
-            // $entityManager->persist($nuevoUsuario);
-            // $entityManager->flush();
+            $nuevoUsuario = new Usuarios();
+            $nuevoUsuario->setCorreo($correcito);
+            $nuevoUsuario->setNombre($nombrecito);
+            $hashedpassword = $passwordHasher->hashPassword($nuevoUsuario, $contraseñita);
+            $nuevoUsuario->setContraseña($hashedpassword);
+            $nuevoUsuario->setActivo(false);
+            $nuevoUsuario->setAdmin(false);
+            $nuevoUsuario->setFechaRegistro(new \DateTime());
+            $token = bin2hex(random_bytes(32));
+            $nuevoUsuario->setToken($token);
+            $entityManager->persist($nuevoUsuario);
+            $entityManager->flush();
+
+            $email = (new Email())
+            ->from('no-reply@JJnetwork.com')
+            ->to($correcito)
+            ->subject('Confirma tu cuenta')
+            ->html("
+            <h1>Confirma tu cuenta</h1>
+            <p>Haz click en el siguiente enlace:</p>
+            <a href='http://localhost:8000/confirmarCuenta?token=$token'>Confirmar cuenta</a>");
+
+            $mailer->send($email);
+
         } else {
-            // Manejar el caso en que el correo ya existe
+            //Si el correo ya existe, muestro un error en crearCuenta
             return $this->render('createAccount.html.twig', ['error' => 'El correo ya está registrado.']);
         }
         return $this->render('confirmAccount.html.twig', ['email' => $correcito]);
