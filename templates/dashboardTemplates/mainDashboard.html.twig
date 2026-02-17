@@ -1,0 +1,24 @@
+{% extends "parentTemplate.html.twig" %}
+
+{# {% block header %}  
+    <h1> {{ app.user.username }} <h1>
+{% endblock %}  #}
+
+{% block content %}  
+
+    <a href="{{ path("profileDashboard") }}">Mi perfil</a> <br>
+    <a href="{{ path("createPostDashboard") }}">Crear Post</a> <br>
+    {# <a href="{{ path()}}"></a> <br> #}
+
+    <hr>
+
+    <form action="{{ path("mainDashboard") }}" method="POST">
+        <input type="text" name="_userToSearch"/> <br>
+        <input type="submit" value="Buscar"><br>
+    </form> <br>
+
+{% endblock %}
+
+{% block footer %}  
+    {{ parent() }}
+{% endblock %} 

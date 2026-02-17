@@ -1,9 +1,11 @@
 Jaime:
-	Login
+	Login 
 	Email
 Juan:
 	Dashboard:
 		-Ver mi perfil:
 			Crear posts
 		-Busqueda usuarios:
-		-Creacion posts:s
+			DQL
+		-Creacion posts:
+		-API {{ DEEPSEEK }}
