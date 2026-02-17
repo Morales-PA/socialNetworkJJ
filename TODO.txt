@@ -1,0 +1,9 @@
+Jaime:
+	Login
+	Email
+Juan:
+	Dashboard:
+		-Ver mi perfil:
+			Crear posts
+		-Busqueda usuarios:
+		-Creacion posts:s
