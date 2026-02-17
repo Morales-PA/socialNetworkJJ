@@ -35,9 +35,7 @@ final class LoginPhpController extends AbstractController
 
         $user = $this->getUser(); // Usuario autenticado
             
-        return $this->render('afterLogin.html.twig', [
-            'nombre' => $user->getNombre(),
-        ]);
+        return $this->render('afterLogin.html.twig');
 
     }
 
