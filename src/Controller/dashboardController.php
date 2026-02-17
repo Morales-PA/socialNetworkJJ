@@ -26,7 +26,7 @@ final class dashboardController extends AbstractController
 
         if (!empty($userToSearch)) {
         
-            $usersFoundArray = $em->createQuery("SELECT u FROM App\Entity\Usuarios u WHERE u.nombre LIKE '%$userToSearch%' AND ")->getResult();
+            $usersFoundArray = $em->createQuery("SELECT u FROM App\Entity\Usuarios u WHERE u.nombre LIKE '%$userToSearch%'")->getResult();
         
         } else {
 
