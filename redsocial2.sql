@@ -1,11 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 16-02-2026 a las 10:02:51
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+CREATE DATABASE IF NOT EXISTS redsocial2;
+USE redsocial2;
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

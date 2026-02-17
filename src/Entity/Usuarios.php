@@ -31,6 +31,9 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type:'datetime', name:'fechaRegistro')]
     private $fechaRegistro;
+
+    #[ORM\Column(type:'string', name:'token')]
+    private $token;
 	
     public function getIdUsuario() {
         return $this->idUsuario;
@@ -60,6 +63,13 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
         $this->contraseña = $contraseña;
     }
     
+    public function getToken() {
+        return $this->token;
+    }
+    
+    public function setToken($token) {
+        $this->token = $token;
+    }
     public function getAdmin() {
         return $this->admin;
     }
