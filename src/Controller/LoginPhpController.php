@@ -25,17 +25,8 @@ final class LoginPhpController extends AbstractController
             ]);
         }else{
             return $this->redirectToRoute('after_login');
-        }
 
-            
+}
 
-        // Comprueba si hubo algún error
-         $error = $authenticationUtils->getLastAuthenticationError();
-
-        // Recupera el último nombre de usuario que se probó
-         $lastUsername = $authenticationUtils->getLastUsername();
-
-        // Renderizar el formulario de login
-        return $this->render('login.html.twig');
     }
 }
