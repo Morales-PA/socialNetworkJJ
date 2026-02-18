@@ -1,0 +1,17 @@
+<html>
+<head><title>Correo enviado</title></head>
+<body>
+    
+    {% if mensaje %}
+        {{ mensaje }}
+    {% else %}
+        Ya se ha creado tu cuenta con el correo {{ email }}, ya puedes iniciar sesión!!
+    {% endif %}
+    
+    <br>
+
+    <!-- Volver al login -->
+    <a href="{{ path('login') }}">Volver al login</a>
+    
+</body>
+</html>

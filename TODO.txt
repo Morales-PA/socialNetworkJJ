@@ -1,6 +1,7 @@
 Jaime:
 	Login 
 	Email
+	No se puede volver al login con un boton porque no recibe los parametros necesarios, solo deja con enlace
 Juan:
 	Dashboard:
 		-Ver mi perfil:
