@@ -20,6 +20,10 @@ final class dashboardController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); 
 
+        if($this->getUser()->getActivo() == 0 ){
+            return $this->redirectToRoute("logout");
+        }
+
         $userToSearch = $request->request->get("_userToSearch");
 
         // $user = $this->getNombre(); Ask dani about the predefined methods to interact with the logged user
