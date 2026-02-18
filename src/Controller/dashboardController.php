@@ -22,7 +22,7 @@ final class dashboardController extends AbstractController
 
         $userToSearch = $request->request->get("_userToSearch");
 
-        // $user = $this->getNombre(); Ask dani about the predefine methods to interact with the logged user
+        // $user = $this->getNombre(); Ask dani about the predefined methods to interact with the logged user
 
         if (!empty($userToSearch)) {
         
