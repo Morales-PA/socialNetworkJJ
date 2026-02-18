@@ -56,7 +56,7 @@ final class EmailsphpController extends AbstractController
             ->html("
             <h1>Confirma tu cuenta</h1>
             <p>Haz click en el siguiente enlace:</p>
-            <a href='http://localhost:8000/confirmarCuenta?token=$token'>Confirmar cuenta</a>");
+            <a href='http://localhost:8000/confirmarCuenta/$token'>Confirmar cuenta</a>");
 
             $mailer->send($email);
 
@@ -72,4 +72,34 @@ final class EmailsphpController extends AbstractController
     {   
         return $this->render('sendEmailToRecoverPassword.html.twig');
     }
+
+    #[Route('/confirmarCuenta/{token?}', name: 'confirmr_account_with_email')]
+    public function ConfirmarCuentaPorCorreo($token, EntityManagerInterface $entityManager)
+    {
+        if (!$token) {
+            return $this->render('cuentaCreada.html.twig', [
+                'mensaje' => 'Falta el token en la URL'
+            ]);
+        }
+
+        $repo = $entityManager->getRepository(Usuarios::class);
+        $usuario = $repo->findOneBy(['token' => $token]);
+
+        if (!$usuario) {
+            return $this->render('cuentaCreada.html.twig', [
+                'mensaje' => 'Esta URL no es correcta'
+            ]);
+        }
+
+        $usuario->setActivo(true);
+        $usuario->setToken(null);
+        $entityManager->flush();
+
+        return $this->render('cuentaCreada.html.twig', [
+            "email" => $usuario->getCorreo(),
+            "mensaje" => ""
+        ]);
+    }
+
+
 }

@@ -25,6 +25,15 @@ final class LoginPhpController extends AbstractController
 
     }
 
+
+    #[Route('/logout', name: 'logout')] // Althoug this controller exists it will never be  reached due to the security.yaml intercepting it first
+    public function Logout()
+    {   
+
+        return new Response();
+    }
+
+
     #[Route('/after_login', name: 'after_login')]
     public function afterLogin(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager)
     {   
