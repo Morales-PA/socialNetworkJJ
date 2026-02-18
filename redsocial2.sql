@@ -2,6 +2,15 @@ CREATE DATABASE IF NOT EXISTS redsocial2;
 USE redsocial2;
 
 
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-02-2026 a las 23:42:56
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -97,7 +106,7 @@ CREATE TABLE `seguidores` (
   `idSeguidor` int(11) NOT NULL,
   `idSeguido` int(11) NOT NULL,
   `estado` varchar(20) NOT NULL DEFAULT 'pendiente'
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `seguidores`
@@ -129,18 +138,20 @@ CREATE TABLE `usuarios` (
   `contraseña` varchar(255) NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT 0,
   `activo` tinyint(1) NOT NULL DEFAULT 0,
-  `fechaRegistro` datetime NOT NULL DEFAULT current_timestamp()
+  `fechaRegistro` datetime NOT NULL DEFAULT current_timestamp(),
+  `token` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idUsuario`, `nombre`, `correo`, `contraseña`, `admin`, `activo`, `fechaRegistro`) VALUES
-(1, 'User1', 'user1@example.com', '$2y$10$QbERimcev6WAj9H3.c/6KO2kFtJ/cQUmfe5c.zPxfaMFWzVsB2wmC', 0, 1, '2026-02-16 09:26:42'),
-(2, 'User2', 'user2@example.com', '$2y$10$kwzVAIBcDyrB7Qz8645mSucLT.8V8sz7rwFI8jnQB.WrAEb9XtFfu', 0, 1, '2026-02-16 09:26:42'),
-(3, 'OscarHueso', 'oscarHueso@gmail.com', '$2y$10$BVo.Ixn5RW.y/C/clPp3A.mc86WY2IvnYMbQm.VezTDInIpL8.Vfi', 0, 1, '2026-02-16 09:26:42'),
-(4, 'Ahmad', 'ahmad@gmail.com', '$2y$10$2mBqfmPFaHarnZPm1ZhbIOL.fALO29gOPVm5sleBT58kKF1UV9QVC', 0, 1, '2026-02-16 09:26:42');
+INSERT INTO `usuarios` (`idUsuario`, `nombre`, `correo`, `contraseña`, `admin`, `activo`, `fechaRegistro`, `token`) VALUES
+(1, 'User1', 'user1@example.com', '$2y$10$QbERimcev6WAj9H3.c/6KO2kFtJ/cQUmfe5c.zPxfaMFWzVsB2wmC', 0, 1, '2026-02-16 09:26:42', ''),
+(2, 'User2', 'user2@example.com', '$2y$10$kwzVAIBcDyrB7Qz8645mSucLT.8V8sz7rwFI8jnQB.WrAEb9XtFfu', 0, 1, '2026-02-16 09:26:42', ''),
+(3, 'OscarHueso', 'oscarHueso@gmail.com', '$2y$10$BVo.Ixn5RW.y/C/clPp3A.mc86WY2IvnYMbQm.VezTDInIpL8.Vfi', 0, 1, '2026-02-16 09:26:42', ''),
+(4, 'Ahmad', 'ahmad@gmail.com', '1234', 0, 1, '2026-02-16 09:26:42', ''),
+(5, 'jaime', 'jaimeacicuendez@gmail.com', '1234', 0, 0, '2026-02-17 22:26:42', '6a7d9ff9c449cb9ac329830052a26ef8dad6336f5f80db190ea79d9cdb308b88');
 
 --
 -- Índices para tablas volcadas
@@ -195,7 +206,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
