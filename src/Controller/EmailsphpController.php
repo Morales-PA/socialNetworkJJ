@@ -29,10 +29,11 @@ final class EmailsphpController extends AbstractController
     #[Route('/ConfirmarNuevaCuenta', name: 'confirm_account')]
     public function ConfirmarCuenta(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer)
     {   
-        $correcito = $request->get('new_email');
-        $contraseñita = $request->get('new_password');
-        $nombrecito = $request->get('new_name');
+        $correcito = $request->request->get('new_email');
+        $contraseñita = $request->request->get('new_password');
+        $nombrecito = $request->request->get('new_name');
         $repo = $entityManager->getRepository(Usuarios::class);
+        
         $usuario = $repo->findOneBy(['correo' => $correcito]);
         if (!$usuario) {
             $nuevoUsuario = new Usuarios();
