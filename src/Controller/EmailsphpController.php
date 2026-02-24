@@ -67,9 +67,31 @@ final class EmailsphpController extends AbstractController
     }
 
     #[Route('/CorreoEnviado', name: 'send_email')]
-    public function EnviarCorreo()
+    public function EnviarCorreo(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer)
     {   
-        return $this->render('sendEmailToRecoverPassword.html.twig');
+        $correcito = $request->get('new_email');
+        $repo = $entityManager->getRepository(Usuarios::class);
+        $usuario = $repo->findOneBy(['correo' => $correcito]);
+       
+        if ($usuario) {
+            $token = bin2hex(random_bytes(32));
+            $usuario->setToken($token);
+            $entityManager->flush();
+            $email = (new Email())
+            ->from('no-reply@JJnetwork.com')
+            ->to($correcito)
+            ->subject('Confirma tu cuenta')
+            ->html("
+            <h1>Cambia tu contraseña</h1>
+            <p>Haz click en el siguiente enlace:</p>
+            <a href='http://localhost:8000/cambiarContraseña/$token'>Cambiar Contraseña</a>");
+
+            $mailer->send($email);
+            return $this->render('sendEmailToRecoverPassword.html.twig', ["email" => $correcito]);
+        }else{
+            $error = 1;
+            return $this->render('changePassword.html.twig', ["error" => $error]);
+        }
     }
 
     #[Route('/confirmarCuenta/{token?}', name: 'confirmr_account_with_email')]
@@ -101,4 +123,54 @@ final class EmailsphpController extends AbstractController
     }
 
 
+    #[Route('/cambiarContraseña/{token}', name: 'cambiarcontraseñaConemail')]
+public function Cambiar($token, EntityManagerInterface $entityManager)
+{
+    if (!$token) {
+        return $this->render('cuentaCreada.html.twig', [
+            'mensaje' => 'Falta el token en la URL'
+        ]);
+    }
+
+    $usuario = $entityManager->getRepository(Usuarios::class)->findOneBy(['token' => $token]);
+
+    if (!$usuario) {
+        return $this->render('cuentaCreada.html.twig', [
+            'mensaje' => 'Esta URL no es correcta'
+        ]);
+    }
+
+    // Pasamos el objeto completo
+    return $this->render('contraseñaCambiada.html.twig', [
+        'usuario' => $usuario->getToken()
+    ]);
+}
+
+    #[Route('/nueva', name: 'recibonuevacontraseña')]
+    public function nuevaContraseña(
+    Request $request, 
+    EntityManagerInterface $entityManager, 
+    UserPasswordHasherInterface $passwordHasher)
+    {
+    $token = $request->request->get('token');
+    $nuevaContraseña = $request->request->get('nueva');
+    $usuario = $entityManager->getRepository(Usuarios::class)->findOneBy(['token' => $token]);
+
+    if (!$usuario) {
+        return $this->render('cuentaCreada.html.twig', [
+            'mensaje' => 'Usuario no encontrado o token inválido ' . $token . "hola"
+        ]);
+    }
+
+    $hashedPassword = $passwordHasher->hashPassword($usuario, $nuevaContraseña);
+    $usuario->setContraseña($hashedPassword);
+
+    $usuario->setToken(null);
+
+    $entityManager->flush();
+
+    return $this->render('cuentaCreada.html.twig', [
+        'mensaje' => 'La contraseña se ha cambiado correctamente'
+    ]);
+}
 }
