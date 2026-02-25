@@ -1,0 +1,28 @@
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}  
+        <h1> {{ userName }} </h1> 
+        <h3> {{ userEmail }} </h3>
+        <a href="{{ path("logout") }}">Cerrar Sesión</a> <br> 
+{% endblock %} 
+
+{% block flashMessagesLooper %} 
+        {{ parent() }}
+{% endblock %} 
+
+{% block content %} 
+
+    <div class="container alert" style="text-align: center;">
+
+        <form action="{{ path('follow_user', { userToFollowId: userId}) }}" method="post">
+            
+            <input type="submit" value="Seguir usuario">
+        </form>
+
+    </div>
+
+{% endblock %} 
+
+{% block footer %}
+        {{ parent() }}
+{% endblock %} 

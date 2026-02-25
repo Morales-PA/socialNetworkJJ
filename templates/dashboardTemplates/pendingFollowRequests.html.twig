@@ -1,0 +1,42 @@
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}
+    <h1>Solicitudes de Seguimiento</h1>
+{% endblock %}
+
+{% block flashMessagesLooper %} 
+    {{ parent() }}   
+{% endblock %}
+
+{% block content %}
+
+    {% if pendingRequests is not empty %}
+
+        {% for request in pendingRequests %}
+
+            <div class="alert">
+
+                <p>
+                    {{ request.seguidor.correo }} |
+
+                <a href="{{ path('accept_follow', { followerUserId: request.seguidor.idUsuario }) }}">
+                    Aceptar
+                </a>
+                |
+                <a href="{{ path('reject_follow', { followerUserId: request.seguidor.idUsuario }) }}">
+                    Rechazar
+                </a>
+
+                </p> 
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

@@ -1,14 +1,16 @@
 {% extends "parentTemplate.html.twig" %}
 
-{# {% block header %}  
-    <h1> {{ app.user.username }} <h1>
-{% endblock %}  #}
+{% block header %}  
+    <h1> {{app.user.nombre}} </h1> 
+    <h3> {{app.user.correo}} </h3>
+    <a href="{{ path("logout") }}">Cerrar Sesión</a> <br> 
+{% endblock %} 
 
 {% block content %}  
 
-    <a href="{{ path("personalProfileDashboard", { loggedUser : app.user.idUsuario }) }}">Mi perfil</a> <br>
-    <a href="{{ path("createPostDashboard") }}">Crear Post</a> <br>
-    {# <a href="{{ path()}}"></a> <br> #}
+    <a href="{{ path("personal_ProfileDashboard", { userName: app.user.nombre, userMail: app.user.correo, userId: app.user.idUsuario }) }}">Mi perfil</a> <br>
+    <a href="{{ path("create_PostDashboard") }}">Crear Post</a> <br>
+    <a href="{{ path("pending_follow_requests") }}">Solicitudes</a> <br>
 
     <hr>
 
@@ -21,7 +23,7 @@
 
         {% for user in usersFoundArray  %}
 
-            <p> {{ user.nombre }} | {{ user.correo }} | <a href="">Ir a perifl</a> </p>
+            <p> {{ user.nombre }} | {{ user.correo }} | <a href="{{ path("personal_ProfileDashboard", { userName: user.nombre, userMail: user.correo, userId: user.idUsuario }) }}">Ir a perifl</a> </p>
 
         {% endfor %}
 

@@ -9,6 +9,12 @@
     <!--FORMULARIO INICIO DE SESION -->
     <p><h1>Incio de sesión</h1></p>
     
+    {% if error %}
+        <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 10px;">
+            <strong>Error de autenticación:</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+    
     <form action="{{ path('login') }}" method="post">
         <label for="username">Correo:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}">

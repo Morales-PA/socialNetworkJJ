@@ -23,15 +23,23 @@ class Seguidores
     public function getSeguidor() {
         return $this->seguidor;
     }
+
+    public function SetSeguidor($seguidor) {
+        return $this->seguidor = $seguidor;
+    }
+
     public function getSeguido() {
         return $this->seguido;
     }
+
     public function setSeguido($seguido) {
         $this->seguido = $seguido;
     }
+
     public function getEstado() {
         return $this->estado;
     }
+    
     public function setEstado($estado) {
         $this->estado = $estado;
     }

@@ -20,6 +20,16 @@
         
         <main>
             <div class="container">
+
+                {% block flashMessagesLooper %} 
+                
+                    {% for message in app.flashes('warning') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                
+                {% endblock %} 
                 
                 {% block content %} {% endblock %} 
                 

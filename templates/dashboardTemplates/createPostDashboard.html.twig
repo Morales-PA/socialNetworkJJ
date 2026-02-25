@@ -1,0 +1,28 @@
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}
+    <h1> {{app.user.nombre}} </h1> 
+    <h3> {{app.user.correo}} </h3>
+    <a href="{{ path("logout") }}">Cerrar Sesión</a> <br> 
+{% endblock %}
+
+{% block flashMessagesLooper %} 
+        {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <h4> Crear nuevo post: </h4>
+
+    <form method="post" action="{{ path("post_creation") }}">
+
+        <input type="text" name="contenido" rows="5" required></inpu>
+
+        <input type="submit" value="Crear Post">
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

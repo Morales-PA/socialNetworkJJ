@@ -6,12 +6,6 @@ Jaime:
 			-Recuperar contraseña
 			-Crear cuenta
 Juan:
-	Dashboard:
-		-Dashboard:
-			Show all users when firstly loggin in
-		-Ver mi perfil:
-			TOFIX: -Show user posts
-		-Creacion posts:
-		-API: 
-			DEEPSEEK { Chat in user profile, with context about their posts }
-		// TODO: Make the user search function return a mmesage when zero users are found
+		API TIEMPO
+		Follow and Unfollow
+		Comment on posts

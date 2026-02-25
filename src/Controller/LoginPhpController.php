@@ -29,8 +29,8 @@ final class LoginPhpController extends AbstractController
     #[Route('/logout', name: 'logout')] // Althoug this controller exists it will never be  reached due to the security.yaml intercepting it first
     public function Logout()
     {   
-
-        return new Response();
+        
+        return $this->render('login.html.twig');
     }
 
 

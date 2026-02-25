@@ -10,8 +10,7 @@ security:
     # en este caso están escritas en texto plano (plaintext) en la base de datos
     password_hashers:
         App\Entity\Usuarios:
-                algorithm: auto #CAMBIAR PARA HASHEAR LAS CONTRASEÑAS
-                ignore_case: true
+                algorithm: plaintext
 
     firewalls:
         dev:

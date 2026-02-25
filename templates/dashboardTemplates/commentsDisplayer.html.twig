@@ -1,0 +1,43 @@
+{% extends "parentTemplate.html.twig" %}
+
+{% block header %}  
+        <h1> {{app.user.nombre}} </h1> 
+        <h3> {{app.user.correo}} </h3>
+        <a href="{{ path("logout") }}">Cerrar Sesión</a> <br> 
+{% endblock %} 
+
+{% block flashMessagesLooper %} 
+        {{ parent() }}
+{% endblock %} 
+
+{% block content %} 
+
+        <h4> Comentarios: </h4>
+
+        {% if postCommentsArray is not empty %}
+
+            {% for comment in postCommentsArray  %}
+
+                <div class="container">  
+                <p>{{ comment.contenido }}</p>
+
+                <small style="color:#777; display:block; text-align:right;">
+                    {{ comment.fechaPublicacion|date('d/m/Y H:i') }}
+                </small>
+
+                </div>
+                    
+            {% endfor %}
+
+        {% endif %}
+
+        <form action="{{ path("create_Comment", { postId: postId}) }}" method="POST">
+            <input type="text" name="_commentContent" required/> <br>
+            <input type="submit" value="Publicar comentario">
+        </form>
+
+{% endblock %} 
+
+{% block footer %} 
+        {{ parent() }}
+{% endblock %} 
