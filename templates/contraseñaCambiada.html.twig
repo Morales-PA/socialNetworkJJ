@@ -1,0 +1,17 @@
+<html>
+<head><title>Correo enviado</title></head>
+<body>
+    
+    {% if mensaje is defined %}
+        {{ mensaje }}
+        
+    {% else %}
+    {{usuario}}
+    <form action="{{path('recibonuevacontraseña')}}" method="post">
+        <input type="text" name="nueva">
+        <input type="hidden" value="{{usuario}}" name="token">
+        <input type="submit" value="Cambiar"></input>
+    </form>
+{% endif %}
+</body>
+</html>
